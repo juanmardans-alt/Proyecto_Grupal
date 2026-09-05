@@ -18,7 +18,7 @@
 
     </head>
     <body class="d-flex flex-column min-vh-100">
-        <header>
+         <header>
             <nav class="navbar navbar-expand-md navbar-light navbar-dark static-top shadow-sm">
             <div class="container-fluid">
                 <a class="navbar-brand fw-bold text-white" href="{% url 'myapp:index' %}">Inicio</a>
@@ -31,15 +31,27 @@
             <div class="collapse navbar-collapse" id="navbarContenido">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link text-white btn btn-primary bi bi-people-fill me-2" href="{% url 'myapp:clientes' %}"><span class="ms-2">Clientes</span></a></li>
-                <li class="nav-item"><a class="nav-link text-white btn btn-primary bi bi-person-square me-2" href="{% url 'myapp:tecnicos' %}"><span class="ms-2">Tecnicos</span></a></li>
-                <li class="nav-item"><a class="nav-link text-white btn btn-primary bi bi-cpu-fill me-2" href="{% url 'myapp:equipos' %}"><span class="ms-2">Equipos</span></a></li>
-                <li class="nav-item"><a class="nav-link text-white btn btn-primary bi bi-tools me-2" href="{% url 'myapp:reparaciones' %}"><span class="ms-2">Reparaciones</span></a></li>
-                <li class="nav-item"><a class="nav-link text-white btn btn-primary" href="#NADAAUN">Iniciar</a></li>
+                <li class="nav-item"><a class="nav-link text-white btn btn-primary bi bi-person-badge-fill me-2" href="{% url 'myapp:tecnicos' %}"><span class="ms-2">Tecnicos</span></a></li>
+                <li class="nav-item"><a class="nav-link text-white btn btn-primary bi bi-cpu" href="{% url 'myapp:equipos' %}"><span class="ms-2">Equipos</span></a></li>
+                <li class="nav-item"><a class="nav-link text-white btn btn-primary bi bi-tools" href="{% url 'myapp:reparaciones' %}"><span class="ms-2">Reparaciones</span></a></li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item"><a href="{% url 'accounts:perfil' %}" class="nav-link"><span class="ms-2">Perfil</span></a></li>
+                    <form action="{% url 'accounts:logout' %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <li class="nav-item"><button type="submit" class="btn btn-link nav-link d-flex align-items-center border-0 text-decoration-none"><span class="ms-2">Cerrar sesión</span></button></li>
+                    </form>
+                {% else %}
+                    <li class="nav-item"><a href="{% url 'accounts:login' %}" class="nav-link"><span class="ms-2">Ingresar</span></a></li>
+                    <li class="nav-item"><a href="{% url 'accounts:registro' %}" class="nav-link"><span class="ms-2">Registrarse</span></a></li>
+                {% endif %}
             </ul>
             </nav>
 
 
         </header>
+
+
+
         <main class="container my-5 pb-5">
             {% block content %} <!-- Contenido específico de cada página irá aquí --> {% endblock %}
         </main>

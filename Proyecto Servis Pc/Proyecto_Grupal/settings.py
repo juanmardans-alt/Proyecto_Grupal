@@ -39,7 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myapp',
     'widget_tweaks',
+    'accounts',
 ]
+
+LOGIN_REDIRECT_URL = 'accounts:perfil'
+LOGOUT_REDIRECT_URL = 'accounts:login'
+LOGIN_URL = 'accounts:login'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -117,3 +123,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+import os
+
+# Ruta URL para acceder a los archivos multimedia
+MEDIA_URL = '/avatares/'
+# Carpeta física en tu computadora donde se guardan las imágenes
+MEDIA_ROOT = os.path.join(BASE_DIR, 'avatares')
+
